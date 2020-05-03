@@ -89,17 +89,15 @@ RSpec.describe 'Todos API', type: :request do
 
   # Test suite for PUT /todos/:id
   describe 'PUT /todos/:id' do
-    let(:valid_attributes) { { title: 'Shopping' }.to_json }
+    let(:valid_attributes) do
+      { title: 'Shopping' }.to_json
+    end
 
     context 'when the record exists' do
       before { put "/todos/#{todo_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
-        expect(response.body).to be_empty
-      end
-
-      it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+        expect(json['title']).to eq('Shopping')
       end
     end
   end
